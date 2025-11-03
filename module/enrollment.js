@@ -14,6 +14,13 @@ const entrollments = {
                 enrollments.course_id = courses.course_id ORDER BY enrollments.enrollment_date
                 DESC`;
         return db.execute(sql);
+    },
+    update: (entrollment) => {
+        const {id,student_id, course_id, enrollment_date} = entrollment;
+        const sql = `UPDATE enrollments SET enrollments.student_id=? , 
+        enrollments.course_id=?, enrollments.enrollment_date=? WHERE
+        enrollment_id=?`;
+        return db.execute(sql,[student_id,course_id,enrollment_date,id]);
     }
 }
 

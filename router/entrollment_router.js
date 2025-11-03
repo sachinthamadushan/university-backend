@@ -4,5 +4,7 @@ const router = express.Router();
 
 router.post('/create', entrollmentController.createEntrollment);
 router.get('/all',entrollmentController.getAllEntrollments);
+router.put('/update/:id',entrollmentController.updateEntrollment);
+
 
 module.exports = router;

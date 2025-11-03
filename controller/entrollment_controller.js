@@ -26,6 +26,23 @@ const entrollmentController = {
         } catch (error) {
             res.status(500).json({msg:`Internal server error : ${error.message}`});
         }
+    },
+    updateEntrollment: async (req,res)=> {
+        try {
+            const {student_id,course_id,entrollment_date} =  req.body;
+            const [result] = await entrollments.update({
+                id:req.params.id,
+                student_id:student_id,
+                course_id:course_id,
+                enrollment_date:entrollment_date
+            });
+            if(result.affectedRows === 0){
+                return res.status(404).json({ msg: "Entrollment not found" });
+            }
+            res.status(200).json({ msg: "Entrollment updated !" });
+        } catch (error) {
+            res.status(500).json({msg:`Internal server error : ${error.message}`});
+        }
     }
 }
 
