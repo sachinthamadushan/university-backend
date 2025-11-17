@@ -7,7 +7,7 @@ router.get('/all',stundents.getAllStudents);
 router.get('/find/:id',stundents.getStudentById);
 router.get('/search/:text',stundents.getStudentByText);
 router.put('/update/:id',stundents.udateStudent);
-router.delete('/delete/:id', stundents.deleteStudent);
+router.put('/delete/:id', stundents.deleteStudent);
 
 
 module.exports = router;

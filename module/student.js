@@ -30,6 +30,8 @@ const student = {
         return db.execute(sql,[first_name,last_name,email,dob,id]);
     },
     delete:(id) => {
+        console.log(id);
+        
         const sql = "UPDATE student SET student.status=0 WHERE student_id=?";
         return db.execute(sql,[id]);
     }

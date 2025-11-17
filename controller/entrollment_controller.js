@@ -4,15 +4,17 @@ const entrollmentController = {
     createEntrollment: async(req,res) => {
         try {
             const {student_id,course_id} =  req.body;
+            
             const enrollment_date = new Date();
             const [result] = await entrollments.create({student_id,course_id,enrollment_date});
+                        
             if(result.affectedRows == 1){
-                res.status(201).json({msg:"Entrollment successfull"});
+                return res.status(201).json({msg:"Entrollment successfull"});
             }else{
-                res.status(400).json({msg:"Entrollment faild"});
+                return res.status(400).json({msg:"Entrollment faild"});
             }
         } catch (error) {
-            res.status(500).json({msg:`Internal server error : ${error.message}`});
+            res.status(500).json({msg:`Internal server error : ${error}`});
         }
     },
     getAllEntrollments: async(req,res) => {
@@ -40,6 +42,17 @@ const entrollmentController = {
                 return res.status(404).json({ msg: "Entrollment not found" });
             }
             res.status(200).json({ msg: "Entrollment updated !" });
+        } catch (error) {
+            res.status(500).json({msg:`Internal server error : ${error.message}`});
+        }
+    },
+    deleteEntrollment: async(req, res)=>{
+        try {
+            const [result] = await entrollments.delete(req.params.id);
+            if(result.affectedRows === 0){
+                return res.status(404).json({ msg: "Entrollment not found" });
+            }
+            res.status(200).json({msg:'Entrollment delete successful'});
         } catch (error) {
             res.status(500).json({msg:`Internal server error : ${error.message}`});
         }

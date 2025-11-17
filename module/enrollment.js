@@ -7,7 +7,7 @@ const entrollments = {
         return db.execute(sql, [parseInt(student_id), parseInt(course_id), enrollment_date]);
     },
     findAll: () => {
-        const sql = `SELECT enrollments.enrollment_date , CONCAT(student.first_name," ",
+        const sql = `SELECT enrollment_id, enrollments.enrollment_date , CONCAT(student.first_name," ",
                 student.last_name) AS full_name , courses.course_code, courses.course_name,
                 courses.course_fee  FROM enrollments INNER JOIN student ON 
                 enrollments.student_id = student.student_id INNER JOIN courses ON 
@@ -21,6 +21,10 @@ const entrollments = {
         enrollments.course_id=?, enrollments.enrollment_date=? WHERE
         enrollment_id=?`;
         return db.execute(sql,[student_id,course_id,enrollment_date,id]);
+    },
+    delete:(id)=>{
+        const sql = `DELETE FROM enrollments WHERE enrollment_id=?`;
+        return db.execute(sql,[id]);
     }
 }
 

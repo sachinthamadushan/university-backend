@@ -3,7 +3,8 @@ const student = require('../module/student');
 const students = {
     createStudent: async (req, res) => {
         try {
-            const { first_name, last_name, email, dob } = req.body;
+            const { first_name, last_name, 
+                email, dob } = req.body;
             const result = await student.save({ first_name, last_name, email, dob,
                 status:1
              });
@@ -36,7 +37,7 @@ const students = {
     },
     getStudentByText: async(req,res) => {
         try {
-            const [result] = await student.findByText(req.params.text);
+            const result = await student.findByText(req.params.text);
             if(result.length === 0){
                 return res.status(200).json({ msg: "Student not found" });
             }
@@ -60,6 +61,8 @@ const students = {
     },
     deleteStudent: async(req,res) => {
         try {
+            console.log(req.params.id);
+            
            const [result] = await student.delete(req.params.id);
            if(result.affectedRows===0){
             return res.status(404).json({msg:"Student Not Fond"});
